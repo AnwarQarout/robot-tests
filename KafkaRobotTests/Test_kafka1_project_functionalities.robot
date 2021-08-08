@@ -1,6 +1,6 @@
 *** Settings ***
 Resource          resources.robot
-Library           TestKafka.py
+Library           ../../TestKafka.py
 Library           OperatingSystem
 
 *** Test Cases ***
