@@ -10,11 +10,11 @@ Create Topic That Already Exists
 Create Topic That Doesnt Exist
     Verify Content Of Topic List Changes After Creation    ${nonExistingTopic}
 
-Delete Topic That Already Exists
-    Verify Content Of Topic List Changes After Deletion
+#Delete Topic That Already Exists
+    #Verify Content Of Topic List Changes After Deletion
 
-Delete Topic That Doesnt Exist
-    Verify Content Of Topic List Doesnt Change After Deletion    ${nonExistingTopic}
+#Delete Topic That Doesnt Exist
+    #Verify Content Of Topic List Doesnt Change After Deletion    ${nonExistingTopic}
 
 Send File To Kafka And Ensure It Was Sent
     Send File To Kafka Topic    ${existingTopic}    ${existingFile}
