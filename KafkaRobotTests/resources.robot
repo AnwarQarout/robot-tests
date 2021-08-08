@@ -1,8 +1,8 @@
 *** Variables ***
 ${existingTopic}    tempTopic
 ${nonExistingTopic}    aTempTopic
-${existingFile}    file.txt
-${outputF}        outfile.txt
+${existingFile}    ./file.txt
+${outputF}        ./outfile.txt
 ${lineInFile}     third line
 
 *** Keywords ***
