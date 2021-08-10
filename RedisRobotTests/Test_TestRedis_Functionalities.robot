@@ -1,6 +1,6 @@
 *** Settings ***
-Suite Setup       Custom Setup
-Suite Teardown    Custom Teardown
+Test Setup        Custom Setup
+Test Teardown     Custom Teardown
 Resource          resources.robot
 Library           TestRedis.py
 
@@ -25,6 +25,14 @@ delete key
     Should Not Contain    ${output2}    ${key}
 
 create key
+    ${output}    list all keys
+    Should Not Contain    ${output}    ${key}
+    create key    ${key}    ${value}
+    ${output2}    list all keys
+    Should Not Be Equal    ${output}    ${output2}
+    Should Contain    ${output2}    ${key}
+
+create key again
     ${output}    list all keys
     Should Not Contain    ${output}    ${key}
     create key    ${key}    ${value}

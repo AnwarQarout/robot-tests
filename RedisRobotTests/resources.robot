@@ -8,7 +8,6 @@ ${value}          myvalue
 *** Keywords ***
 Custom Setup
     establish connection    ${host}    ${port}
-    clean database
 
 Custom Teardown
     clean database
