@@ -1,4 +1,4 @@
-properties([parameters([choice(choices: ['kafka tests','ssh tests'], description: 'Select which tests you would like to execute.', name: 'test_type')])])
+properties([parameters([choice(choices: ['kafka tests','ssh tests','redis tests'], description: 'Select which tests you would like to execute.', name: 'test_type')])])
 pipeline {
     agent any
 
@@ -47,8 +47,11 @@ pipeline {
                     if("${params.test_type}" == "kafka tests"){
                         bat "python -m robot wrapper/KafkaRobotTests"
                     }
-                    else{
+                    else if("${params.test_type}" == "ssh tests"){
                     bat "python -m robot wrapper/SSHRobotTests"
+                    }
+                    else {
+                        bat "python -m robot wrapper/RedisRobotTests"
                     }
                 }
             }
