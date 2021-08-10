@@ -1,0 +1,58 @@
+properties([parameters([choice(choices: ['kafka tests','ssh tests'], description: 'Select which tests you would like to execute.', name: 'test_type')])])
+pipeline {
+    agent any
+
+    stages {
+        
+          stage('prepare') {
+             steps {
+                 bat 'mkdir wrapper'
+                 script{
+                     try{
+                    withPythonEnv('python') {
+                        bat 'pip install robotframework'
+                        bat 'pip install robot'
+                        bat 'pip install kafka-python'
+                        bat 'pip install redis'
+                        
+                    }
+                     }
+                     catch (ERROR) {
+                         echo ERROR.getMessage()
+                         
+                     }
+                     echo currentBuild.result
+             }
+             }
+        }
+        
+        
+        stage('BuildTestRobot') {
+            steps {
+                git branch: 'master', url: 'https://github.com/AnwarQarout/Test-Libraries.git'
+            }
+        }
+        
+        stage('BuildTestLibraries') {
+            steps {
+                dir("wrapper"){
+                git branch: 'master', url: 'https://github.com/AnwarQarout/robot-tests.git'
+                }
+            }
+        }
+        
+         stage('Run') {
+            steps {
+                script{
+                    if("${params.test_type}" == "kafka tests"){
+                        bat "python -m robot wrapper/KafkaRobotTests"
+                    }
+                    else{
+                    bat "python -m robot wrapper/SSHRobotTests"
+                    }
+                }
+            }
+        }
+
+    }
+}
